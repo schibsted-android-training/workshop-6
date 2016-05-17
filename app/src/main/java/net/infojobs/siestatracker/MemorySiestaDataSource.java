@@ -12,4 +12,9 @@ public class MemorySiestaDataSource implements SiestaDataSource {
     public Date getLastSiestaDate() {
         return lastSiesta;
     }
+
+    @Override
+    public void saveLastSiesta(Date lastSiesta) {
+        this.lastSiesta = lastSiesta;
+    }
 }
