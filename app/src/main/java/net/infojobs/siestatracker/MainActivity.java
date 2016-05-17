@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import net.infojobs.siestatracker.domain.Clock;
 import net.infojobs.siestatracker.domain.ObtainLastSiestaDateInteractor;
 import net.infojobs.siestatracker.domain.SaveNewSiestaInteractor;
 import net.infojobs.siestatracker.domain.SiestaDataSource;
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements SiestaPresenter.V
 
         SiestaDataSource siestaDataSource = new MemorySiestaDataSource();
         ObtainLastSiestaDateInteractor obtainLastSiestaDateInteractor = new ObtainLastSiestaDateInteractor(siestaDataSource);
-        SaveNewSiestaInteractor saveNewSiestaInteractor = new SaveNewSiestaInteractor(siestaDataSource);
+        Clock clock = new Clock();
+        SaveNewSiestaInteractor saveNewSiestaInteractor = new SaveNewSiestaInteractor(siestaDataSource, clock);
         presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
 
         presenter.setView(this);
