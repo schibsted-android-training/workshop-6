@@ -11,6 +11,6 @@ public class SaveNewSiestaInteractor {
     }
 
     public void saveNewSiesta() {
-        siestaDataSource.saveLastSiesta(new Date());
+        siestaDataSource.saveLastSiesta(new Date(0));
     }
 }
