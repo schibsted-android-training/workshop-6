@@ -13,7 +13,7 @@ public class ObtainLastSiestaDateInteractor {
     public Date obtainLastSiesta() {
         Date lastSiestaDate = siestaDataSource.getLastSiestaDate();
         if (lastSiestaDate == null) {
-            throw new IllegalStateException("No siesta yet");
+            return null;
         }
         return lastSiestaDate;
     }

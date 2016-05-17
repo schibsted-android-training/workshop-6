@@ -8,6 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,11 +28,14 @@ public class ObtainLastSiestaDateInteractorTest {
         assertEquals(storedSiestaDate, receivedSiestaDate);
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void should_throw_exception_when_data_source_returns_null() throws Exception {
-        when(siestaDataSource.getLastSiestaDate()).thenReturn(null);
+    @Test
+    public void should_return_null_exception_when_data_source_returns_null() throws Exception {
+        Date storedSiestaDate = null;
+        when(siestaDataSource.getLastSiestaDate()).thenReturn(storedSiestaDate);
 
         ObtainLastSiestaDateInteractor interactor = new ObtainLastSiestaDateInteractor(siestaDataSource);
-        interactor.obtainLastSiesta();
+        Date receivedSiestaDate = interactor.obtainLastSiesta();
+
+        assertNull(receivedSiestaDate);
     }
 }
