@@ -1,5 +1,7 @@
 package net.infojobs.siestatracker;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements SiestaPresenter.V
             }
         });
 
-        SiestaDataSource siestaDataSource = new MemorySiestaDataSource();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SiestaDataSource siestaDataSource = new SharedPreferenceSiestaDataSource(sharedPreferences);
         ObtainLastSiestaDateInteractor obtainLastSiestaDateInteractor = new ObtainLastSiestaDateInteractor(siestaDataSource);
         Clock clock = new Clock();
         SaveNewSiestaInteractor saveNewSiestaInteractor = new SaveNewSiestaInteractor(siestaDataSource, clock);
