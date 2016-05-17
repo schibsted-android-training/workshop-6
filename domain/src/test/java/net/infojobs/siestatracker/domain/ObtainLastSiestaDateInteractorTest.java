@@ -26,4 +26,12 @@ public class ObtainLastSiestaDateInteractorTest {
 
         assertEquals(storedSiestaDate, receivedSiestaDate);
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void should_throw_exception_when_data_source_returns_null() throws Exception {
+        when(siestaDataSource.getLastSiestaDate()).thenReturn(null);
+
+        ObtainLastSiestaDateInteractor interactor = new ObtainLastSiestaDateInteractor(siestaDataSource);
+        interactor.obtainLastSiesta();
+    }
 }
