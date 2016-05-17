@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements SiestaPresenter.V
 
         SiestaDataSource siestaDataSource = new MemorySiestaDataSource();
         ObtainLastSiestaDateInteractor obtainLastSiestaDateInteractor = new ObtainLastSiestaDateInteractor(siestaDataSource);
-        SaveNewSiestaInteractor saveNewSiestaInteractor = new SaveNewSiestaInteractor();
+        SaveNewSiestaInteractor saveNewSiestaInteractor = new SaveNewSiestaInteractor(siestaDataSource);
         presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
 
         presenter.setView(this);
