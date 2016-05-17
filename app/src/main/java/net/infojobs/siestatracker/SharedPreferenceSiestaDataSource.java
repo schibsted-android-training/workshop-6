@@ -16,8 +16,12 @@ public class SharedPreferenceSiestaDataSource implements SiestaDataSource {
 
     @Override
     public Date getLastSiestaDate() {
-        long lastSiestaTimestamp = sharedPreferences.getLong("LAST_SIESTA", 0L);
-        return new Date(lastSiestaTimestamp);
+        if (sharedPreferences.contains("LAST_SIESTA")) {
+            long lastSiestaTimestamp = sharedPreferences.getLong("LAST_SIESTA", 0L);
+            return new Date(lastSiestaTimestamp);
+        } else {
+            return null;
+        }
     }
 
     @Override
