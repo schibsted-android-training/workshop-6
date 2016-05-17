@@ -2,9 +2,7 @@ package net.infojobs.siestatracker.domain;
 
 import java.util.Date;
 
-public class SiestaDataSource {
+public interface SiestaDataSource {
 
-    public Date getLastSiestaDate() {
-        return null;
-    }
+    Date getLastSiestaDate();
 }
