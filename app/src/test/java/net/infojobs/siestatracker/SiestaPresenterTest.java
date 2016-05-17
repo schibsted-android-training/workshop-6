@@ -48,4 +48,21 @@ public class SiestaPresenterTest {
 
         verify(saveNewSiestaInteractor).saveNewSiesta();
     }
+
+    @Test
+    public void should_show_date_as_text_when_update_siesta_clicked() throws Exception {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 28);
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.FEBRUARY);
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 7);
+        Date lastSiestaDate = new Date(calendar.getTimeInMillis());
+        when(obtainLastSiestaDateInteractor.obtainLastSiesta()).thenReturn(lastSiestaDate);
+
+        SiestaPresenter presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
+        presenter.onUpdateSiestaClick();
+
+        verify(view).showLastSiestaDate("21:07, 28/02/2016");
+    }
 }
