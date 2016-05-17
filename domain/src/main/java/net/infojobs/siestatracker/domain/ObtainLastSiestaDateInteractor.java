@@ -11,6 +11,6 @@ public class ObtainLastSiestaDateInteractor {
     }
 
     public Date obtainLastSiesta() {
-        return null;
+        return siestaDataSource.getLastSiestaDate();
     }
 }
