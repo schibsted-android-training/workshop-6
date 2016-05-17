@@ -49,4 +49,9 @@ public class MainActivity extends AppCompatActivity implements SiestaPresenter.V
     public void showLastSiestaDate(String lastDate) {
         lastDateText.setText(lastDate);
     }
+
+    @Override
+    public void showNoSiestaMessage() {
+        lastDateText.setText("¯\\_(シ)_/¯");
+    }
 }

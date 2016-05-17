@@ -34,13 +34,19 @@ public class SiestaPresenter {
 
     private void updateLastSiestaText() {
         Date date = obtainLastSiestaDateInteractor.obtainLastSiesta();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm, dd/MM/yyyy", new Locale("es", "ES"));
-        String dateText = dateFormat.format(date);
-        view.showLastSiestaDate(dateText);
+        if (date != null) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm, dd/MM/yyyy", new Locale("es", "ES"));
+            String dateText = dateFormat.format(date);
+            view.showLastSiestaDate(dateText);
+        } else {
+            view.showNoSiestaMessage();
+        }
     }
 
     interface View {
 
         void showLastSiestaDate(String lastDate);
+
+        void showNoSiestaMessage();
     }
 }

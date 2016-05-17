@@ -49,6 +49,15 @@ public class SiestaPresenterTest {
     }
 
     @Test
+    public void should_show_empty_message_when_null_date_received() throws Exception {
+        when(obtainLastSiestaDateInteractor.obtainLastSiesta()).thenReturn(null);
+
+        presenter.initialize();
+
+        verify(view).showNoSiestaMessage();
+    }
+
+    @Test
     public void should_save_new_siesta_when_update_siesta_clicked() throws Exception {
         when(obtainLastSiestaDateInteractor.obtainLastSiesta()).thenReturn(new Date());
 
