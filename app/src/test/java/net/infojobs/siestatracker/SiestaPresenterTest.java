@@ -3,6 +3,7 @@ package net.infojobs.siestatracker;
 import net.infojobs.siestatracker.domain.ObtainLastSiestaDateInteractor;
 import net.infojobs.siestatracker.domain.SaveNewSiestaInteractor;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -23,6 +24,13 @@ public class SiestaPresenterTest {
     ObtainLastSiestaDateInteractor obtainLastSiestaDateInteractor;
     @Mock
     SaveNewSiestaInteractor saveNewSiestaInteractor;
+    private SiestaPresenter presenter;
+
+    @Before
+    public void setUp() throws Exception {
+        presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
+        presenter.setView(view);
+    }
 
     @Test
     public void should_show_date_as_text_when_date_received() throws Exception {
@@ -35,15 +43,15 @@ public class SiestaPresenterTest {
         Date lastSiestaDate = new Date(calendar.getTimeInMillis());
         when(obtainLastSiestaDateInteractor.obtainLastSiesta()).thenReturn(lastSiestaDate);
 
-        SiestaPresenter presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
-        presenter.initialize(view);
+        presenter.initialize();
 
         verify(view).showLastSiestaDate("21:07, 28/02/2016");
     }
 
     @Test
     public void should_save_new_siesta_when_update_siesta_clicked() throws Exception {
-        SiestaPresenter presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
+        when(obtainLastSiestaDateInteractor.obtainLastSiesta()).thenReturn(new Date());
+
         presenter.onUpdateSiestaClick();
 
         verify(saveNewSiestaInteractor).saveNewSiesta();
@@ -60,7 +68,6 @@ public class SiestaPresenterTest {
         Date lastSiestaDate = new Date(calendar.getTimeInMillis());
         when(obtainLastSiestaDateInteractor.obtainLastSiesta()).thenReturn(lastSiestaDate);
 
-        SiestaPresenter presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
         presenter.onUpdateSiestaClick();
 
         verify(view).showLastSiestaDate("21:07, 28/02/2016");

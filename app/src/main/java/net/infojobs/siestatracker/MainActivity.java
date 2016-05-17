@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements SiestaPresenter.V
         SaveNewSiestaInteractor saveNewSiestaInteractor = new SaveNewSiestaInteractor();
         presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
 
-        presenter.initialize(this);
+        presenter.setView(this);
+        presenter.initialize();
     }
 
     @Override
