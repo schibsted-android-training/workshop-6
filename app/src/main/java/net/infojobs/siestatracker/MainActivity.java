@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import net.infojobs.siestatracker.domain.ObtainLastSiestaDateInteractor;
+import net.infojobs.siestatracker.domain.SaveNewSiestaInteractor;
 import net.infojobs.siestatracker.domain.SiestaDataSource;
 
 public class MainActivity extends AppCompatActivity implements SiestaPresenter.View {
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity implements SiestaPresenter.V
 
         SiestaDataSource siestaDataSource = new MemorySiestaDataSource();
         ObtainLastSiestaDateInteractor obtainLastSiestaDateInteractor = new ObtainLastSiestaDateInteractor(siestaDataSource);
-        presenter = new SiestaPresenter(obtainLastSiestaDateInteractor);
+        SaveNewSiestaInteractor saveNewSiestaInteractor = new SaveNewSiestaInteractor();
+        presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
 
         presenter.initialize(this);
     }

@@ -1,6 +1,7 @@
 package net.infojobs.siestatracker;
 
 import net.infojobs.siestatracker.domain.ObtainLastSiestaDateInteractor;
+import net.infojobs.siestatracker.domain.SaveNewSiestaInteractor;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,8 @@ public class SiestaPresenterTest {
     SiestaPresenter.View view;
     @Mock
     ObtainLastSiestaDateInteractor obtainLastSiestaDateInteractor;
+    @Mock
+    SaveNewSiestaInteractor saveNewSiestaInteractor;
 
     @Test
     public void should_show_date_as_text_when_date_received() throws Exception {
@@ -32,9 +35,17 @@ public class SiestaPresenterTest {
         Date lastSiestaDate = new Date(calendar.getTimeInMillis());
         when(obtainLastSiestaDateInteractor.obtainLastSiesta()).thenReturn(lastSiestaDate);
 
-        SiestaPresenter presenter = new SiestaPresenter(obtainLastSiestaDateInteractor);
+        SiestaPresenter presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
         presenter.initialize(view);
 
         verify(view).showLastSiestaDate("21:07, 28/02/2016");
+    }
+
+    @Test
+    public void should_save_new_siesta_when_update_siesta_clicked() throws Exception {
+        SiestaPresenter presenter = new SiestaPresenter(obtainLastSiestaDateInteractor, saveNewSiestaInteractor);
+        presenter.onUpdateSiestaClick();
+
+        verify(saveNewSiestaInteractor).saveNewSiesta();
     }
 }
