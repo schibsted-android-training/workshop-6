@@ -1,24 +1,21 @@
 package net.infojobs.siestatracker;
 
-import android.content.SharedPreferences;
-
 import net.infojobs.siestatracker.domain.SiestaDataSource;
 
 import java.util.Date;
 
 public class SharedPreferenceSiestaDataSource implements SiestaDataSource {
 
-    private final SharedPreferences sharedPreferences;
+    private final LongPreference lastSiestaPreference;
 
-    public SharedPreferenceSiestaDataSource(SharedPreferences sharedPreferences) {
-        this.sharedPreferences = sharedPreferences;
+    public SharedPreferenceSiestaDataSource(LongPreference lastSiestaPreference) {
+        this.lastSiestaPreference = lastSiestaPreference;
     }
 
     @Override
     public Date getLastSiestaDate() {
-        if (sharedPreferences.contains("LAST_SIESTA")) {
-            long lastSiestaTimestamp = sharedPreferences.getLong("LAST_SIESTA", 0L);
-            return new Date(lastSiestaTimestamp);
+        if (lastSiestaPreference.hasValue()) {
+            return new Date(lastSiestaPreference.get());
         } else {
             return null;
         }
@@ -26,6 +23,6 @@ public class SharedPreferenceSiestaDataSource implements SiestaDataSource {
 
     @Override
     public void saveLastSiesta(Date lastSiesta) {
-        sharedPreferences.edit().putLong("LAST_SIESTA", lastSiesta.getTime()).apply();
+        lastSiestaPreference.set(lastSiesta.getTime());
     }
 }

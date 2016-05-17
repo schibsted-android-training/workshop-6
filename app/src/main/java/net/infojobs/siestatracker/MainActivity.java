@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity implements SiestaPresenter.V
         });
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SiestaDataSource siestaDataSource = new SharedPreferenceSiestaDataSource(sharedPreferences);
+        LongPreference lastSiestaPreference = new LongPreference("last_siesta", sharedPreferences);
+        SiestaDataSource siestaDataSource = new SharedPreferenceSiestaDataSource(lastSiestaPreference);
         ObtainLastSiestaDateInteractor obtainLastSiestaDateInteractor = new ObtainLastSiestaDateInteractor(siestaDataSource);
         Clock clock = new Clock();
         SaveNewSiestaInteractor saveNewSiestaInteractor = new SaveNewSiestaInteractor(siestaDataSource, clock);
